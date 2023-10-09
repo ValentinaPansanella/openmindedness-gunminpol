@@ -87,14 +87,17 @@ def estimation(opvt, opvt1, sorted_vals):
         err = abs(est_opvt1 - opvt1)
         estimated_opinions.append(est_opvt1)
         errs.append(err)
-    i = len(errs) - 1 - errs[::-1].index(min(errs))
-    last_op = sorted_vals[i]
-    cb = abs(last_op - opvt) 
+    try:
+        i = len(errs) - 1 - errs[::-1].index(min(errs))
+        last_op = sorted_vals[i]
+        cb = abs(last_op - opvt) 
     
-    if errs[i] < abs(opvt-opvt1):
-        return cb, errs[i], estimated_opinions[i]        
-    else:
-        return 0.0, abs(opvt-opvt1), opvt
+        if errs[i] < abs(opvt-opvt1):
+            return cb, errs[i], estimated_opinions[i]        
+        else:
+            return 0.0, abs(opvt-opvt1), opvt
+    except:
+        return -1.0
         
 
 def homophily_u(g, u, t, d):
